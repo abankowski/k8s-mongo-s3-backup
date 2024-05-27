@@ -23,7 +23,7 @@ jobs:
           ref: ${{ github.event.inputs.ref }}
       - uses: tj-actions/branch-names@v5
         id: branch-names
-      - uses: docker/build-push-action@v5
+      - uses: docker/build-push-action@v1
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
