@@ -20,7 +20,10 @@ if [ -z "${S3_BUCKET}" ]; then
   exit 1
 fi
 
-echo "Backup $DATABASE_NAME to $S3_BUCKET"
-mongodump -j=1 --uri="$MONGODB_URI" -d $DATABASE_NAME -o /tmp/data
+date=$(date '+%Y-%m-%d')
 
-s3cmd put --include * --recursive /tmp/data/ s3://$S3_BUCKET
+filename=/tmp/data/$DATABASE_NAME-$date.archive
+echo "Backup $DATABASE_NAME to $S3_BUCKET via $filename"
+mongodump -j=1 --uri="$MONGODB_URI" -d $DATABASE_NAME --archive=$filename --gzip
+
+s3cmd put $filename s3://$S3_BUCKET
