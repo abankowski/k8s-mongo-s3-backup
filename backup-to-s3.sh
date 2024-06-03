@@ -1,4 +1,6 @@
 #!bin/sh
+set -e
+
 if [ -z "${MONGODB_URI}" ]; then
   echo "Environment variable MONGODB_URI not present."
   echo "Valid configuration requires environment variables MONGODB_URI, DATABASE_NAME, and S3_BUCKET."
