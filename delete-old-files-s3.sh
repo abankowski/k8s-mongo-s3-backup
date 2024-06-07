@@ -13,7 +13,7 @@ OLDER_THAN_DATE=$(date -d "${OLDER_THAN_DAYS} days ago" +%Y-%m-%d)
 
 s3cmd ls --list-md s3://$S3_BUCKET/ | while read -r line; do
   FILE_DATE=$(echo "$line" | awk '{print $1}')
-  FILE_PATH=$(echo "$line" | awk '{print $4}')
+  FILE_PATH=$(echo "$line" | awk '{print $5}')
 
   if [[ $FILE_DATE \< $OLDER_THAN_DATE ]]; then
     echo "Deleting $FILE_PATH (Last modified: $FILE_DATE)"
