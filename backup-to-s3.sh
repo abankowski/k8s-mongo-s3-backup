@@ -25,6 +25,11 @@ fi
 date=$(date '+%Y-%m-%d')
 
 filename=/tmp/data/$DATABASE_NAME-$date.archive
+
+if [ -n "$1" ]; then
+    filename=/tmp/data/$DATABASE_NAME-$date-$1.gz
+fi
+
 echo "Backup $DATABASE_NAME to $S3_BUCKET via $filename"
 mongodump -j=1 --uri="$MONGODB_URI" -d $DATABASE_NAME --archive=$filename --gzip
 
